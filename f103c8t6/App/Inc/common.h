@@ -1,0 +1,17 @@
+/*
+ * common.h
+ *
+ *  Created on: Mar 16, 2026
+ *      Author: LeeJooHo
+ */
+
+#ifndef INC_COMMON_H_
+#define INC_COMMON_H_
+
+#include <stdint.h>
+#include <stdbool.h>
+#include <stm32f1xx.h>
+#include <main.h>
+//#include <stm32f1xx_hal_tim.h>
+
+#endif /* INC_COMMON_H_ */

@@ -1,0 +1,30 @@
+/*
+ * output.h
+ *
+ *  Created on: Mar 16, 2026
+ *      Author: LeeJooHo
+ */
+
+#ifndef INC_OUTPUT_H_
+#define INC_OUTPUT_H_
+
+#include <common.h>
+
+typedef enum {
+	OUTPUT_ACTIVE_LOW,
+	OUTPUT_ACTIVE_HIGH
+} OutputType;
+
+typedef struct _Output Output;
+struct _Output {
+	GPIO_TypeDef* port;
+	uint16_t      pin;
+	OutputType    type;
+};
+
+void Output_Init(Output*, GPIO_TypeDef*, uint16_t, OutputType);
+void Output_TurnOn(Output*);
+void Output_TurnOff(Output*);
+void Output_Toggle(Output*);
+
+#endif /* INC_OUTPUT_H_ */

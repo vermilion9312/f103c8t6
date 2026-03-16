@@ -1,0 +1,4 @@
+../App/Src/output.c:11:6:Output_TurnOn	1
+../App/Src/output.c:17:6:Output_TurnOff	1
+../App/Src/output.c:23:6:Output_Toggle	1
+../App/Src/output.c:28:6:Output_Init	1

@@ -1,0 +1,22 @@
+/*
+ * app_main.c
+ *
+ *  Created on: Mar 16, 2026
+ *      Author: LeeJooHo
+ */
+
+
+#include <app_main.h>
+#include <output.h>
+
+static Output led;
+
+void App_Init(void)
+{
+	Output_Init(&led, LED_)
+}
+
+void App_Loop(void)
+{
+
+}

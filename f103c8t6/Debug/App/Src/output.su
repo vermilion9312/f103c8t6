@@ -1,0 +1,4 @@
+../App/Src/output.c:11:6:Output_TurnOn	24	static
+../App/Src/output.c:17:6:Output_TurnOff	24	static
+../App/Src/output.c:23:6:Output_Toggle	16	static
+../App/Src/output.c:28:6:Output_Init	24	static

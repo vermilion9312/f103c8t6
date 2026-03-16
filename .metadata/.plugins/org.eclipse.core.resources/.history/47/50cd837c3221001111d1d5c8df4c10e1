@@ -1,0 +1,32 @@
+/*
+ * output.c
+ *
+ *  Created on: Mar 16, 2026
+ *      Author: LeeJooHo
+ */
+
+
+#include <output.h>
+
+void Output_Init(Output* this, GPIO_TypeDef* port, uint16_t pin, OutputType type)
+{
+	this->port = port;
+	this->pin  = pin;
+	this->type = type;
+}
+
+void Output_TurnOn(Output* this)
+{
+	bool type  = (this->type == OUTPUT_ACTIVE_HIGH) ? OUTPUT_ACTIVE_HIGH : OUTPUT_ACTIVE_LOW;
+	HAL_GPIO_WritePin(this->port, this->pin, type);
+}
+
+void Output_TurnOff(Output* this)
+{
+	bool type  = (this->type == OUTPUT_ACTIVE_HIGH) ? OUTPUT_ACTIVE_LOW : OUTPUT_ACTIVE_HIGH;
+	HAL_GPIO_WritePin(this->port, this->pin, type);
+}
+void Output_Toggle(Output* this)
+{
+	HAL_GPIO_TogglePin(this->port, this->pin);
+}

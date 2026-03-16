@@ -1,0 +1,2 @@
+../App/Src/app_main.c:15:6:App_Init	8	static
+../App/Src/app_main.c:25:6:App_Loop	8	static

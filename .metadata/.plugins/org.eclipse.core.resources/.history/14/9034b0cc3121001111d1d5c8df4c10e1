@@ -1,0 +1,23 @@
+/*
+ * output.h
+ *
+ *  Created on: Mar 16, 2026
+ *      Author: LeeJooHo
+ */
+
+#ifndef INC_OUTPUT_H_
+#define INC_OUTPUT_H_
+
+#include <common.h>
+
+typedef enum {
+	OUTPUT_ACTIVE_LOW,
+	OUTPUT_ACTIVE_HIGH
+} OutputType;
+
+typedef struct _Output Output;
+struct _Output {
+
+};
+
+#endif /* INC_OUTPUT_H_ */
