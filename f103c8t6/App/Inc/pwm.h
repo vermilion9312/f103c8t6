@@ -12,9 +12,13 @@
 
 typedef struct _PWM PWM;
 struct _PWM {
-
+	TIM_TypeDef* tim;
+	uint32_t ccrMin;
+	uint32_t ccrMax;
 };
 
-void PWM_Init(void);
+void PWM_Init(PWM*, TIM_TypeDef*, uint32_t, uint32_t);
+void PWM_SetAngle(PWM*, uint8_t);
+void PWM_SetCcr(PWM* this, uint32_t ccr);
 
 #endif /* INC_PWM_H_ */

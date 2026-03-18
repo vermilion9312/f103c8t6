@@ -24,7 +24,7 @@ App/Src/app_main.o: ../App/Src/app_main.c ../App/Inc/app_main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
- ../Core/Inc/main.h
+ ../Core/Inc/main.h ../App/Inc/pwm.h
 ../App/Inc/app_main.h:
 ../App/Inc/output.h:
 ../App/Inc/common.h:
@@ -53,3 +53,4 @@ App/Src/app_main.o: ../App/Src/app_main.c ../App/Inc/app_main.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 ../Core/Inc/main.h:
+../App/Inc/pwm.h:

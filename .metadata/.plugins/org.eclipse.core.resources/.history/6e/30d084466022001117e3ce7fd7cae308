@@ -1,0 +1,23 @@
+/*
+ * pwm.h
+ *
+ *  Created on: Mar 16, 2026
+ *      Author: LeeJooHo
+ */
+
+#ifndef INC_PWM_H_
+#define INC_PWM_H_
+
+#include <common.h>
+
+typedef struct _PWM PWM;
+struct _PWM {
+	TIM_TypeDef* tim;
+	uint32_t ccrMin;
+	uint32_t ccrMax;
+};
+
+void PWM_Init(PWM*, TIM_TypeDef*, uint32_t, uint32_t);
+void PWM_SetAngle(PWM*, uint8_t);
+
+#endif /* INC_PWM_H_ */
