@@ -31,8 +31,6 @@ typedef struct {
 	uint16_t      pin;
 	OutputType    type;
 
-	OutputPrivate* this;
-
 } OutputPrivate;
 
 Output* new_Output(GPIO_TypeDef*, uint16_t, OutputType);
