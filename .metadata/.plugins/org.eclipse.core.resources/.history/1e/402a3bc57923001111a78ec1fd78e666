@@ -1,0 +1,53 @@
+/*
+ * app_main.c
+ *
+ *  Created on: Mar 16, 2026
+ *      Author: LeeJooHo
+ */
+
+
+#include <app_main.h>
+#include <output.h>
+#include <pwm.h>
+
+extern TIM_HandleTypeDef htim1;
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
+
+static Output led;
+static PWM pwm;
+
+void App_Init(void)
+{
+	Output_Init(&led, LED_GPIO_Port, LED_Pin, OUTPUT_ACTIVE_HIGH);
+	Output_TurnOn(&led);
+
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
+
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
+
+	PWM_Init(&pwm, TIM1, 0, 5000);
+	PWM_Init(&pwm, TIM2, 0, 5000);
+	PWM_Init(&pwm, TIM3, 0, 5000);
+}
+
+
+void App_Loop(void)
+{
+	PWM_SetCcr(&pwm, 500);
+	HAL_Delay(1000);
+	PWM_SetCcr(&pwm, 2400);
+	HAL_Delay(1000);
+
+}
