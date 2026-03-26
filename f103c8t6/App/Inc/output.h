@@ -19,34 +19,14 @@ typedef enum {
 
 typedef struct _Output Output;
 struct _Output {
-	void (* TurnOn)(Output*);
-	void (* TurnOff)(Output*);
-	void (* Toggle)(Output*);
-};
-
-typedef struct {
-	Output public;
-
 	GPIO_TypeDef* port;
 	uint16_t      pin;
 	OutputType    type;
+};
 
-	OutputPrivate* this;
-
-} OutputPrivate;
-
-Output* new_Output(GPIO_TypeDef*, uint16_t, OutputType);
-
-//typedef struct _Output Output;
-//struct _Output {
-//	GPIO_TypeDef* port;
-//	uint16_t      pin;
-//	OutputType    type;
-//};
-//
-//void Output_TurnOn(Output*);
-//void Output_TurnOff(Output*);
-//void Output_Toggle(Output*);
-//void Output_Init(Output*, GPIO_TypeDef*, uint16_t, OutputType);
+void Output_TurnOn(Output*);
+void Output_TurnOff(Output*);
+void Output_Toggle(Output*);
+void Output_Init(Output*, GPIO_TypeDef*, uint16_t, OutputType);
 
 #endif /* INC_OUTPUT_H_ */

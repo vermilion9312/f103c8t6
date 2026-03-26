@@ -1,17 +1,50 @@
-20:02:30 **** Incremental Build of configuration Debug for project f103c8t6 ****
-make -j18 all 
+06:34:00 **** Incremental Build of configuration Debug for project f103c8t6 ****
+make -j4 all 
 arm-none-eabi-gcc "../App/Src/app_main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../App/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"App/Src/app_main.d" -MT"App/Src/app_main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "App/Src/app_main.o"
+../App/Src/app_main.c:35:12: warning: 'pwm3Ch4' defined but not used [-Wunused-variable]
+   35 | static PWM pwm3Ch4;
+      |            ^~~~~~~
+../App/Src/app_main.c:34:12: warning: 'pwm3Ch3' defined but not used [-Wunused-variable]
+   34 | static PWM pwm3Ch3;
+      |            ^~~~~~~
+../App/Src/app_main.c:33:12: warning: 'pwm3Ch2' defined but not used [-Wunused-variable]
+   33 | static PWM pwm3Ch2;
+      |            ^~~~~~~
+../App/Src/app_main.c:32:12: warning: 'pwm3Ch1' defined but not used [-Wunused-variable]
+   32 | static PWM pwm3Ch1;
+      |            ^~~~~~~
+../App/Src/app_main.c:30:12: warning: 'pwm2Ch4' defined but not used [-Wunused-variable]
+   30 | static PWM pwm2Ch4;
+      |            ^~~~~~~
+../App/Src/app_main.c:29:12: warning: 'pwm2Ch3' defined but not used [-Wunused-variable]
+   29 | static PWM pwm2Ch3;
+      |            ^~~~~~~
+../App/Src/app_main.c:28:12: warning: 'pwm2Ch2' defined but not used [-Wunused-variable]
+   28 | static PWM pwm2Ch2;
+      |            ^~~~~~~
+../App/Src/app_main.c:27:12: warning: 'pwm2Ch1' defined but not used [-Wunused-variable]
+   27 | static PWM pwm2Ch1;
+      |            ^~~~~~~
+../App/Src/app_main.c:24:12: warning: 'pwm1Ch3' defined but not used [-Wunused-variable]
+   24 | static PWM pwm1Ch3;
+      |            ^~~~~~~
+../App/Src/app_main.c:23:12: warning: 'pwm1Ch2' defined but not used [-Wunused-variable]
+   23 | static PWM pwm1Ch2;
+      |            ^~~~~~~
+../App/Src/app_main.c:22:12: warning: 'pwm1Ch1' defined but not used [-Wunused-variable]
+   22 | static PWM pwm1Ch1;
+      |            ^~~~~~~
 arm-none-eabi-gcc -o "f103c8t6.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Personal\f103c8t6\f103c8t6\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="f103c8t6.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: f103c8t6.elf
  
 arm-none-eabi-size  f103c8t6.elf 
 arm-none-eabi-objdump -h -S f103c8t6.elf  > "f103c8t6.list"
    text	   data	    bss	    dec	    hex	filename
-  10468	     12	   1988	  12468	   30b4	f103c8t6.elf
+  10056	     12	   1812	  11880	   2e68	f103c8t6.elf
 Finished building: default.size.stdout
  
 Finished building: f103c8t6.list
  
 
-20:02:56 Build Finished. 0 errors, 0 warnings. (took 26s.373ms)
+06:34:01 Build Finished. 0 errors, 11 warnings. (took 1s.302ms)
 

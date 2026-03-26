@@ -8,23 +8,6 @@
 
 #include <output.h>
 
-static OutputPrivate this[MAX_OUTPUT_COUNT];
-static uint8_t totalCount;
-static uint8_t index;
-
-
-static uint8_t timeCount, tickCount, totalCount;
-
-void IncreaseCount(void)
-{
-	timeCount++;
-}
-
-int main(void)
-{
-	IncreaseCount(timeCount);
-}
-
 void Output_TurnOn(Output* this)
 {
 	bool type  = (this->type == OUTPUT_ACTIVE_HIGH) ? OUTPUT_ACTIVE_HIGH : OUTPUT_ACTIVE_LOW;
@@ -42,39 +25,11 @@ void Output_Toggle(Output* this)
 	HAL_GPIO_TogglePin(this->port, this->pin);
 }
 
-Output* new_Output(GPIO_TypeDef* port, uint16_t pin, OutputType type)
+void Output_Init(Output* this, GPIO_TypeDef* port, uint16_t pin, OutputType type)
 {
-	this[totalCount].port = port;
-	this[totalCount].pin  = pin;
-	this[totalCount].type = type;
+	this->port = port;
+	this->pin  = pin;
+	this->type = type;
 
-	totalCount++;
-
-	return &this[0];
+	Output_TurnOff(this);
 }
-
-//void Output_TurnOn(Output* this)
-//{
-//	bool type  = (this->type == OUTPUT_ACTIVE_HIGH) ? OUTPUT_ACTIVE_HIGH : OUTPUT_ACTIVE_LOW;
-//	HAL_GPIO_WritePin(this->port, this->pin, type);
-//}
-//
-//void Output_TurnOff(Output* this)
-//{
-//	bool type  = (this->type == OUTPUT_ACTIVE_HIGH) ? OUTPUT_ACTIVE_LOW : OUTPUT_ACTIVE_HIGH;
-//	HAL_GPIO_WritePin(this->port, this->pin, type);
-//}
-//
-//void Output_Toggle(Output* this)
-//{
-//	HAL_GPIO_TogglePin(this->port, this->pin);
-//}
-//
-//void Output_Init(Output* this, GPIO_TypeDef* port, uint16_t pin, OutputType type)
-//{
-//	this->port = port;
-//	this->pin  = pin;
-//	this->type = type;
-//
-//	Output_TurnOff(this);
-//}

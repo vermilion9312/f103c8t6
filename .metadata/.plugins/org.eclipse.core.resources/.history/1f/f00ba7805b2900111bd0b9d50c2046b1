@@ -1,0 +1,142 @@
+/*
+ * app_main.c
+ *
+ *  Created on: Mar 16, 2026
+ *      Author: LeeJooHo
+ */
+
+
+#include <app_main.h>
+#include <output.h>
+#include <pwm.h>
+
+#define MIN_CCR 500
+#define MAX_CCR 2500
+
+extern TIM_HandleTypeDef htim1;
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
+
+static Output led;
+
+static PWM pwm1Ch1;
+static PWM pwm1Ch2;
+static PWM pwm1Ch3;
+static PWM pwm1Ch4;
+
+static PWM pwm2Ch1;
+static PWM pwm2Ch2;
+static PWM pwm2Ch3;
+static PWM pwm2Ch4;
+
+static PWM pwm3Ch1;
+static PWM pwm3Ch2;
+static PWM pwm3Ch3;
+static PWM pwm3Ch4;
+
+
+void App_Init(void)
+{
+	Output_Init(&led, LED_GPIO_Port, LED_Pin, OUTPUT_ACTIVE_HIGH);
+	Output_TurnOn(&led);
+
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
+
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
+
+//	PWM_Init(&pwm1Ch1, TIM1, CH1, MIN_CCR, MAX_CCR);
+//	PWM_Init(&pwm1Ch2, TIM1, CH2, MIN_CCR, MAX_CCR);
+//	PWM_Init(&pwm1Ch3, TIM1, CH3, MIN_CCR, MAX_CCR);
+	PWM_Init(&pwm1Ch4, TIM1, CH4, MIN_CCR, MAX_CCR - 40, CW);
+
+//	PWM_Init(&pwm2Ch1, TIM2, CH1, MIN_CCR, MAX_CCR);
+//	PWM_Init(&pwm2Ch2, TIM2, CH2, MIN_CCR, MAX_CCR);
+//	PWM_Init(&pwm2Ch3, TIM2, CH3, MIN_CCR, MAX_CCR);
+//	PWM_Init(&pwm2Ch4, TIM2, CH4, MIN_CCR, MAX_CCR);
+//
+//	PWM_Init(&pwm3Ch1, TIM3, CH1, MIN_CCR, MAX_CCR);
+//	PWM_Init(&pwm3Ch2, TIM3, CH2, MIN_CCR, MAX_CCR);
+//	PWM_Init(&pwm3Ch3, TIM3, CH3, MIN_CCR, MAX_CCR);
+//	PWM_Init(&pwm3Ch4, TIM3, CH4, MIN_CCR, MAX_CCR);
+}
+
+#define MAX_CCR 2500
+
+
+void App_Loop(void)
+{
+	Output_Toggle(&led);
+
+
+//	PWM_SetAngle(&pwm1Ch1, 10);
+//	PWM_SetAngle(&pwm1Ch2, 10);
+//	PWM_SetAngle(&pwm1Ch3, 10);
+	PWM_SetAngle(&pwm1Ch4, 0);
+	HAL_Delay(2000);
+
+//	PWM_SetAngle(&pwm1Ch1, 45);
+//	PWM_SetAngle(&pwm1Ch2, 45);
+//	PWM_SetAngle(&pwm1Ch3, 45);
+//	PWM_SetAngle(&pwm1Ch4, 45);
+//	PWM_SetCcr(&pwm1Ch4, 500);
+//	PWM_SetCcrMin(&pwm1Ch4);
+	PWM_SetAngle(&pwm1Ch4, 45);
+	HAL_Delay(2000);
+
+//	PWM_SetAngle(&pwm1Ch1, 90);
+//	PWM_SetAngle(&pwm1Ch2, 90);
+//	PWM_SetAngle(&pwm1Ch3, 90);
+//	PWM_SetCcrMax(&pwm1Ch4);
+	PWM_SetAngle(&pwm1Ch4, 90);
+	HAL_Delay(5000);
+
+//	PWM_SetAngle(&pwm1Ch1, 0);
+//	PWM_SetAngle(&pwm1Ch2, 0);
+//	PWM_SetAngle(&pwm1Ch3, 0);
+//	PWM_SetAngle(&pwm1Ch5, 0);
+//	HAL_Delay(1000);
+
+//	PWM_SetCcr(&pwm1Ch1, 500);
+//	PWM_SetCcr(&pwm1Ch2, 500);
+//	PWM_SetCcr(&pwm1Ch3, 500);
+//	PWM_SetCcr(&pwm1Ch4, 500);
+
+
+//	PWM_SetCcr(&pwm2Ch1, 500);
+//	PWM_SetCcr(&pwm2Ch2, 500);
+//	PWM_SetCcr(&pwm2Ch3, 500);
+//	PWM_SetCcr(&pwm2Ch4, 500);
+//
+//	PWM_SetCcr(&pwm3Ch1, 500);
+//	PWM_SetCcr(&pwm3Ch2, 500);
+//	PWM_SetCcr(&pwm3Ch3, 500);
+//	PWM_SetCcr(&pwm3Ch4, 500);
+//	HAL_Delay(1000);
+//
+//	PWM_SetCcr(&pwm1Ch1, MAX_CCR);
+//	PWM_SetCcr(&pwm1Ch2, MAX_CCR);
+//	PWM_SetCcr(&pwm1Ch3, MAX_CCR);
+//	PWM_SetCcr(&pwm1Ch4, MAX_CCR);
+//
+//	PWM_SetCcr(&pwm2Ch1, MAX_CCR);
+//	PWM_SetCcr(&pwm2Ch2, MAX_CCR);
+//	PWM_SetCcr(&pwm2Ch3, MAX_CCR);
+//	PWM_SetCcr(&pwm2Ch4, MAX_CCR);
+//
+//	PWM_SetCcr(&pwm3Ch1, MAX_CCR);
+//	PWM_SetCcr(&pwm3Ch2, MAX_CCR);
+//	PWM_SetCcr(&pwm3Ch3, MAX_CCR);
+//	PWM_SetCcr(&pwm3Ch4, MAX_CCR);
+//	HAL_Delay(1000);
+}

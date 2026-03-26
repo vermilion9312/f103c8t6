@@ -1,3 +1,5 @@
 ../App/Src/pwm.c:11:6:PWM_Init	24	static
-../App/Src/pwm.c:27:6:PWM_SetAngle	24	static
-../App/Src/pwm.c:37:6:PWM_SetCcr	16	static
+../App/Src/pwm.c:28:6:PWM_SetAngle	32	static
+../App/Src/pwm.c:40:6:PWM_SetCcrMin	16	static
+../App/Src/pwm.c:45:6:PWM_SetCcrMax	16	static
+../App/Src/pwm.c:50:6:PWM_SetCcr	16	static

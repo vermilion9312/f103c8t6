@@ -8,11 +8,12 @@
 
 #include <pwm.h>
 
-void PWM_Init(PWM* this, TIM_TypeDef* tim, PWM_Channel channerl, uint32_t ccrMin, uint32_t ccrMax)
+void PWM_Init(PWM* this, TIM_TypeDef* tim, PWM_Channel channerl, uint32_t ccrMin, uint32_t ccrMax, MotorDirection direction)
 {
-	this->tim      = tim;
-	this->ccrMin   = ccrMin;
-	this->ccrMax   = ccrMax;
+	this->tim       = tim;
+	this->ccrMin    = ccrMin;
+	this->ccrMax    = ccrMax;
+	this->direction = direction;
 
 	switch (channerl)
 	{
@@ -28,10 +29,22 @@ void PWM_SetAngle(PWM* this, uint8_t angle)
 {
     if (angle > 180) angle = 180;
 
+    uint8_t targetAngle = (this->direction == CCW) ? (180 - angle) : angle;
+
     uint32_t range = this->ccrMax - this->ccrMin;
-	uint32_t offset = (range * angle) / 180;
+	uint32_t offset = (range * targetAngle) / 180;
 
 	*(this->channel) = this->ccrMin + offset;
+}
+
+void PWM_SetCcrMin(PWM* this)
+{
+	*(this->channel) = this->ccrMin;
+}
+
+void PWM_SetCcrMax(PWM* this)
+{
+	*(this->channel) = this->ccrMax;
 }
 
 void PWM_SetCcr(PWM* this, uint32_t ccr)

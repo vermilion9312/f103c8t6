@@ -17,16 +17,24 @@ typedef enum {
 	CH4
 } PWM_Channel;
 
+typedef enum {
+	CW,
+	CCW
+} MotorDirection;
+
 typedef struct _PWM PWM;
 struct _PWM {
 	TIM_TypeDef* tim;
 	volatile uint32_t* channel;
 	uint32_t ccrMin;
 	uint32_t ccrMax;
+	MotorDirection direction;
 };
 
-void PWM_Init(PWM*, TIM_TypeDef*, PWM_Channel, uint32_t, uint32_t);
+void PWM_Init(PWM*, TIM_TypeDef*, PWM_Channel, uint32_t, uint32_t, MotorDirection);
 void PWM_SetAngle(PWM*, uint8_t);
-void PWM_SetCcr(PWM* this, uint32_t ccr);
+void PWM_SetCcr(PWM*, uint32_t);
+void PWM_SetCcrMin(PWM*);
+void PWM_SetCcrMax(PWM*);
 
 #endif /* INC_PWM_H_ */
