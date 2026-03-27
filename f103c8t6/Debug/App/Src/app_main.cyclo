@@ -1,2 +1,12 @@
 ../App/Src/app_main.c:38:6:App_Init	1
-../App/Src/app_main.c:77:6:App_Loop	1
+../App/Src/app_main.c:76:13:standFrontLeftLeg	1
+../App/Src/app_main.c:83:13:foldFrontLeftLeg	1
+../App/Src/app_main.c:90:13:standFrontRightLeg	1
+../App/Src/app_main.c:97:13:foldFrontRightLeg	1
+../App/Src/app_main.c:104:13:foldRearLeftLeg	1
+../App/Src/app_main.c:110:13:standRearLeftLeg	1
+../App/Src/app_main.c:117:13:foldRearRightLeg	1
+../App/Src/app_main.c:124:13:standRearRightLeg	1
+../App/Src/app_main.c:131:13:standLegs	1
+../App/Src/app_main.c:139:13:foldLegs	1
+../App/Src/app_main.c:148:6:App_Loop	1

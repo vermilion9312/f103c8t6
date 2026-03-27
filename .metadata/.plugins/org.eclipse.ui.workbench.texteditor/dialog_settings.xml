@@ -11,4 +11,8 @@
 		<item value="500"/>
 		<item value="pwm1"/>
 	</list>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="724"/>
+		<item key="DIALOG_Y_ORIGIN" value="392"/>
+	</section>
 </section>

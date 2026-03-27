@@ -55,88 +55,98 @@ void App_Init(void)
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
 
-//	PWM_Init(&pwm1Ch1, TIM1, CH1, MIN_CCR, MAX_CCR);
-//	PWM_Init(&pwm1Ch2, TIM1, CH2, MIN_CCR, MAX_CCR);
-//	PWM_Init(&pwm1Ch3, TIM1, CH3, MIN_CCR, MAX_CCR);
+	PWM_Init(&pwm1Ch1, TIM1, CH1, MIN_CCR, MAX_CCR - 40, CCW);
+	PWM_Init(&pwm1Ch2, TIM1, CH2, MIN_CCR, MAX_CCR - 40, CW);
+	PWM_Init(&pwm1Ch3, TIM1, CH3, MIN_CCR, MAX_CCR - 40, CW);
 	PWM_Init(&pwm1Ch4, TIM1, CH4, MIN_CCR, MAX_CCR - 40, CCW);
 
-//	PWM_Init(&pwm2Ch1, TIM2, CH1, MIN_CCR, MAX_CCR);
-//	PWM_Init(&pwm2Ch2, TIM2, CH2, MIN_CCR, MAX_CCR);
-//	PWM_Init(&pwm2Ch3, TIM2, CH3, MIN_CCR, MAX_CCR);
-//	PWM_Init(&pwm2Ch4, TIM2, CH4, MIN_CCR, MAX_CCR);
-//
-//	PWM_Init(&pwm3Ch1, TIM3, CH1, MIN_CCR, MAX_CCR);
-//	PWM_Init(&pwm3Ch2, TIM3, CH2, MIN_CCR, MAX_CCR);
-//	PWM_Init(&pwm3Ch3, TIM3, CH3, MIN_CCR, MAX_CCR);
-//	PWM_Init(&pwm3Ch4, TIM3, CH4, MIN_CCR, MAX_CCR);
+	PWM_Init(&pwm2Ch1, TIM2, CH1, MIN_CCR, MAX_CCR - 100, CCW);
+	PWM_Init(&pwm2Ch2, TIM2, CH2, MIN_CCR, MAX_CCR - 100, CCW);
+	PWM_Init(&pwm2Ch3, TIM2, CH3, MIN_CCR, MAX_CCR -  50, CW);
+	PWM_Init(&pwm2Ch4, TIM2, CH4, MIN_CCR, MAX_CCR -  50, CW);
+
+	PWM_Init(&pwm3Ch1, TIM3, CH1, MIN_CCR, MAX_CCR - 50, CCW);
+	PWM_Init(&pwm3Ch2, TIM3, CH2, MIN_CCR, MAX_CCR - 210,      CCW);
+	PWM_Init(&pwm3Ch3, TIM3, CH3, MIN_CCR, MAX_CCR - 120, CW);
+	PWM_Init(&pwm3Ch4, TIM3, CH4, MIN_CCR, MAX_CCR, CW);
 }
 
-#define MAX_CCR 2500
+//	PWM_SetAngle(&pwm1Ch4, 0);
+
+static void standFrontLeftLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch1, 90); // Heap
+	PWM_SetAngle(&pwm2Ch1, 90); // Thigh
+	PWM_SetAngle(&pwm3Ch1, 10); // Knee
+}
+
+static void foldFrontLeftLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch1, 135); // Heap
+	PWM_SetAngle(&pwm2Ch1, 135); // Thigh
+	PWM_SetAngle(&pwm3Ch1,   0); // Knee
+}
+
+static void standFrontRightLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch3, 90);
+	PWM_SetAngle(&pwm2Ch3, 90);
+	PWM_SetAngle(&pwm3Ch3, 10);
+}
+
+static void foldFrontRightLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch3, 135);
+	PWM_SetAngle(&pwm2Ch3, 135);
+	PWM_SetAngle(&pwm3Ch3, 0);
+}
+
+static void foldRearLeftLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch2, 135);
+	PWM_SetAngle(&pwm2Ch2, 135);
+	PWM_SetAngle(&pwm3Ch2, 0);
+}
+static void standRearLeftLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch2, 90);
+	PWM_SetAngle(&pwm2Ch2, 90);
+	PWM_SetAngle(&pwm3Ch2, 15);
+}
+
+static void foldRearRightLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch4, 135);
+	PWM_SetAngle(&pwm2Ch4, 135);
+	PWM_SetAngle(&pwm3Ch4, 0);
+}
+
+static void standRearRightLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch4, 90);
+	PWM_SetAngle(&pwm2Ch4, 90);
+	PWM_SetAngle(&pwm3Ch4, 15);
+}
+
+static void standLegs(void)
+{
+	standFrontLeftLeg();
+	standFrontRightLeg();
+	standRearLeftLeg();
+	standRearRightLeg();
+}
+
+static void foldLegs(void)
+{
+	foldFrontLeftLeg();
+	foldFrontRightLeg();
+	foldRearLeftLeg();
+	foldRearRightLeg();
+}
 
 
 void App_Loop(void)
 {
-	Output_Toggle(&led);
-
-
-//	PWM_SetAngle(&pwm1Ch1, 10);
-//	PWM_SetAngle(&pwm1Ch2, 10);
-//	PWM_SetAngle(&pwm1Ch3, 10);
-	PWM_SetAngle(&pwm1Ch4, 0);
-	HAL_Delay(2000);
-
-//	PWM_SetAngle(&pwm1Ch1, 45);
-//	PWM_SetAngle(&pwm1Ch2, 45);
-//	PWM_SetAngle(&pwm1Ch3, 45);
-//	PWM_SetAngle(&pwm1Ch4, 45);
-//	PWM_SetCcr(&pwm1Ch4, 500);
-//	PWM_SetCcrMin(&pwm1Ch4);
-	PWM_SetAngle(&pwm1Ch4, 45);
-	HAL_Delay(2000);
-
-//	PWM_SetAngle(&pwm1Ch1, 90);
-//	PWM_SetAngle(&pwm1Ch2, 90);
-//	PWM_SetAngle(&pwm1Ch3, 90);
-//	PWM_SetCcrMax(&pwm1Ch4);
-	PWM_SetAngle(&pwm1Ch4, 90);
-	HAL_Delay(5000);
-
-//	PWM_SetAngle(&pwm1Ch1, 0);
-//	PWM_SetAngle(&pwm1Ch2, 0);
-//	PWM_SetAngle(&pwm1Ch3, 0);
-//	PWM_SetAngle(&pwm1Ch5, 0);
-//	HAL_Delay(1000);
-
-//	PWM_SetCcr(&pwm1Ch1, 500);
-//	PWM_SetCcr(&pwm1Ch2, 500);
-//	PWM_SetCcr(&pwm1Ch3, 500);
-//	PWM_SetCcr(&pwm1Ch4, 500);
-
-
-//	PWM_SetCcr(&pwm2Ch1, 500);
-//	PWM_SetCcr(&pwm2Ch2, 500);
-//	PWM_SetCcr(&pwm2Ch3, 500);
-//	PWM_SetCcr(&pwm2Ch4, 500);
-//
-//	PWM_SetCcr(&pwm3Ch1, 500);
-//	PWM_SetCcr(&pwm3Ch2, 500);
-//	PWM_SetCcr(&pwm3Ch3, 500);
-//	PWM_SetCcr(&pwm3Ch4, 500);
-//	HAL_Delay(1000);
-//
-//	PWM_SetCcr(&pwm1Ch1, MAX_CCR);
-//	PWM_SetCcr(&pwm1Ch2, MAX_CCR);
-//	PWM_SetCcr(&pwm1Ch3, MAX_CCR);
-//	PWM_SetCcr(&pwm1Ch4, MAX_CCR);
-//
-//	PWM_SetCcr(&pwm2Ch1, MAX_CCR);
-//	PWM_SetCcr(&pwm2Ch2, MAX_CCR);
-//	PWM_SetCcr(&pwm2Ch3, MAX_CCR);
-//	PWM_SetCcr(&pwm2Ch4, MAX_CCR);
-//
-//	PWM_SetCcr(&pwm3Ch1, MAX_CCR);
-//	PWM_SetCcr(&pwm3Ch2, MAX_CCR);
-//	PWM_SetCcr(&pwm3Ch3, MAX_CCR);
-//	PWM_SetCcr(&pwm3Ch4, MAX_CCR);
-//	HAL_Delay(1000);
+	foldLegs();
+//	standLegs();
 }

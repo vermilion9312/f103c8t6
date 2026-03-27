@@ -1,2 +1,12 @@
 ../App/Src/app_main.c:38:6:App_Init	16	static
-../App/Src/app_main.c:77:6:App_Loop	8	static
+../App/Src/app_main.c:76:13:standFrontLeftLeg	8	static
+../App/Src/app_main.c:83:13:foldFrontLeftLeg	8	static
+../App/Src/app_main.c:90:13:standFrontRightLeg	8	static
+../App/Src/app_main.c:97:13:foldFrontRightLeg	8	static
+../App/Src/app_main.c:104:13:foldRearLeftLeg	8	static
+../App/Src/app_main.c:110:13:standRearLeftLeg	8	static
+../App/Src/app_main.c:117:13:foldRearRightLeg	8	static
+../App/Src/app_main.c:124:13:standRearRightLeg	8	static
+../App/Src/app_main.c:131:13:standLegs	8	static
+../App/Src/app_main.c:139:13:foldLegs	8	static
+../App/Src/app_main.c:148:6:App_Loop	8	static
