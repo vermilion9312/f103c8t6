@@ -36,5 +36,6 @@ void PWM_SetAngle(PWM*, uint8_t);
 void PWM_SetCcr(PWM*, uint32_t);
 void PWM_SetCcrMin(PWM*);
 void PWM_SetCcrMax(PWM*);
+void PWM_SetAnglePrecision(PWM* this, float angle);
 
 #endif /* INC_PWM_H_ */

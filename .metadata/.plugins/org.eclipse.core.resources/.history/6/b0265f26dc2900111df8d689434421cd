@@ -1,0 +1,186 @@
+/*
+ * app_main.c
+ *
+ *  Created on: Mar 16, 2026
+ *      Author: LeeJooHo
+ */
+
+
+#include <app_main.h>
+#include <output.h>
+#include <pwm.h>
+#include <math.h>
+
+#define MIN_CCR 500
+#define MAX_CCR 2500
+
+extern TIM_HandleTypeDef htim1;
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
+
+static Output led;
+
+static PWM pwm1Ch1;
+static PWM pwm1Ch2;
+static PWM pwm1Ch3;
+static PWM pwm1Ch4;
+
+static PWM pwm2Ch1;
+static PWM pwm2Ch2;
+static PWM pwm2Ch3;
+static PWM pwm2Ch4;
+
+static PWM pwm3Ch1;
+static PWM pwm3Ch2;
+static PWM pwm3Ch3;
+static PWM pwm3Ch4;
+
+
+void App_Init(void)
+{
+	Output_Init(&led, LED_GPIO_Port, LED_Pin, OUTPUT_ACTIVE_HIGH);
+	Output_TurnOn(&led);
+
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
+
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
+
+	PWM_Init(&pwm1Ch1, TIM1, CH1, MIN_CCR, MAX_CCR - 40, CCW);
+	PWM_Init(&pwm1Ch2, TIM1, CH2, MIN_CCR, MAX_CCR - 40, CW);
+	PWM_Init(&pwm1Ch3, TIM1, CH3, MIN_CCR, MAX_CCR - 40, CW);
+	PWM_Init(&pwm1Ch4, TIM1, CH4, MIN_CCR, MAX_CCR - 40, CCW);
+
+	PWM_Init(&pwm2Ch1, TIM2, CH1, MIN_CCR, MAX_CCR - 100, CCW);
+	PWM_Init(&pwm2Ch2, TIM2, CH2, MIN_CCR, MAX_CCR - 100, CCW);
+	PWM_Init(&pwm2Ch3, TIM2, CH3, MIN_CCR, MAX_CCR -  50, CW);
+	PWM_Init(&pwm2Ch4, TIM2, CH4, MIN_CCR, MAX_CCR -  50, CW);
+
+	PWM_Init(&pwm3Ch1, TIM3, CH1, MIN_CCR, MAX_CCR - 50, CCW);
+	PWM_Init(&pwm3Ch2, TIM3, CH2, MIN_CCR, MAX_CCR - 210,      CCW);
+	PWM_Init(&pwm3Ch3, TIM3, CH3, MIN_CCR, MAX_CCR - 120, CW);
+	PWM_Init(&pwm3Ch4, TIM3, CH4, MIN_CCR, MAX_CCR, CW);
+}
+
+//	PWM_SetAngle(&pwm1Ch4, 0);
+
+static void standFrontLeftLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch1, 90); // Heap
+	PWM_SetAngle(&pwm2Ch1, 90); // Thigh
+	PWM_SetAngle(&pwm3Ch1, 10); // Knee
+}
+
+static void foldFrontLeftLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch1, 90); // Heap
+	PWM_SetAngle(&pwm2Ch1, 135); // Thigh
+	PWM_SetAngle(&pwm3Ch1,   0); // Knee
+}
+
+static void standFrontRightLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch3, 90);
+	PWM_SetAngle(&pwm2Ch3, 90);
+	PWM_SetAngle(&pwm3Ch3, 10);
+}
+
+static void foldFrontRightLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch3, 90);
+	PWM_SetAngle(&pwm2Ch3, 135);
+	PWM_SetAngle(&pwm3Ch3, 0);
+}
+
+static void foldRearLeftLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch2, 90);
+	PWM_SetAngle(&pwm2Ch2, 135);
+	PWM_SetAngle(&pwm3Ch2, 0);
+}
+static void standRearLeftLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch2, 90);
+	PWM_SetAngle(&pwm2Ch2, 90);
+	PWM_SetAngle(&pwm3Ch2, 15);
+}
+
+static void foldRearRightLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch4, 90);
+	PWM_SetAngle(&pwm2Ch4, 135);
+	PWM_SetAngle(&pwm3Ch4, 0);
+}
+
+static void standRearRightLeg(void)
+{
+	PWM_SetAngle(&pwm1Ch4, 90);
+	PWM_SetAngle(&pwm2Ch4, 90);
+	PWM_SetAngle(&pwm3Ch4, 15);
+}
+
+static void standLegs(void)
+{
+	standFrontLeftLeg();
+	standFrontRightLeg();
+	standRearLeftLeg();
+	standRearRightLeg();
+}
+
+static void foldLegs(void)
+{
+	foldFrontLeftLeg();
+	foldFrontRightLeg();
+	foldRearLeftLeg();
+	foldRearRightLeg();
+}
+
+/* 전역 또는 정적 변수 설정 */
+float t = 0.0f;            // 진행률 (0.0 ~ 1.0)
+int8_t dir = 1;            // 방향 (1: 증가, -1: 감소)
+uint32_t last_tick = 0;
+const float duration = 500.0f; // 왕복 한 번(편도)에 걸리는 시간 (2초)
+void App_Loop(void)
+{
+//	foldLegs();
+//	HAL_Delay(1000);
+//	standLegs();
+//	HAL_Delay(1000);
+
+	if (HAL_GetTick() - last_tick >= 10)
+	    {
+	        last_tick = HAL_GetTick();
+
+	        // 1. 시간 기반 진행률 업데이트 (10ms / 전체시간)
+	        t += (10.0f / duration) * dir;
+
+	        // 2. 범위 제한 및 방향 전환
+	        if (t >= 1.0f) { t = 1.0f; dir = -1; }
+	        else if (t <= 0.0f) { t = 0.0f; dir = 1; }
+
+	        // 3. 3차 함수 Ease-InOut (Cubic Easing)
+	        // 공식: 시작과 끝의 기울기가 0이 되어 가장 부드러움
+	        float f_t = t < 0.5f ? 4.0f * t * t * t : 1.0f - powf(-2.0f * t + 2.0f, 3.0f) / 2.0f;
+
+	        // 4. 각도 매핑 (90도 ~ 135도)
+	        float current_angle = 90.0f + (45.0f * f_t);
+
+	        // 5. 출력
+	        PWM_SetAnglePrecision(&pwm2Ch3, current_angle);
+	    }
+//	for (uint8_t i = 90; i <= 135; i++)
+//	{
+//		PWM_SetAngle(&pwm2Ch3, i);
+//		HAL_Delay(20);
+//	}
+}

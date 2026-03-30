@@ -37,6 +37,20 @@ void PWM_SetAngle(PWM* this, uint8_t angle)
 	*(this->channel) = this->ccrMin + offset;
 }
 
+void PWM_SetAnglePrecision(PWM* this, float angle)
+{
+    if (angle > 180.0f) angle = 180.0f;
+    if (angle < 0.0f) angle = 0.0f;
+
+    float targetAngle = (this->direction == CW) ? (180.0f - angle) : angle;
+
+    float range = (float)(this->ccrMax - this->ccrMin);
+    // 정수 나눗셈(/180) 대신 실수 연산을 사용하여 오차 최소화
+    uint32_t offset = (uint32_t)((range * targetAngle) / 180.0f);
+
+    *(this->channel) = this->ccrMin + offset;
+}
+
 void PWM_SetCcrMin(PWM* this)
 {
 	*(this->channel) = this->ccrMin;
