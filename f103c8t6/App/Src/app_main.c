@@ -85,6 +85,7 @@ void App_Loop(void)
 	}
 
 	state ^= 1;
+	state ^= 1;
 
 	HAL_Delay(2000);
 }
