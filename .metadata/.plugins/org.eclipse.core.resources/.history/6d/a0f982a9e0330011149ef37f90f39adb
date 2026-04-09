@@ -64,11 +64,10 @@ void App_Loop(void)
 	if (!state)
 	{
 		state = true;
-		TIM1->ARR = 1000;
+		TIM1->ARR = 2000;
 		TIM1->CCR1 = TIM1->ARR / 2;
 	}
 
-	state = 1;
 
 }
 

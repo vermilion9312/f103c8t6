@@ -57,30 +57,28 @@ void App_Init(void)
 
 uint16_t ccr = 500;
 static bool state;
-static uint32_t tick;
 
 void App_Loop(void)
 {
 	if (!state)
 	{
 		state = true;
-		TIM1->ARR = 1000;
+		TIM1->ARR = 20000;
 		TIM1->CCR1 = TIM1->ARR / 2;
 	}
-
-	state = 1;
-
+//
+//	HAL_Delay(2000);
 }
 
-//uint32_t step_count = 0;
-//uint32_t target_steps = 100; // 180도에 해당하는 펄스 수
-//
-//void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
-//    if (htim->Instance == TIM1) { // 사용 중인 타이머 확인
-//        step_count++;
-//        if (step_count >= target_steps) {
-//            HAL_TIM_PWM_Stop_IT(htim, TIM_CHANNEL_1); // 목표 도달 시 정지
-//            step_count = 0;
-//        }
-//    }
-//}
+uint32_t step_count = 0;
+uint32_t target_steps = 100; // 180도에 해당하는 펄스 수
+
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
+    if (htim->Instance == TIM1) { // 사용 중인 타이머 확인
+        step_count++;
+        if (step_count >= target_steps) {
+            HAL_TIM_PWM_Stop_IT(htim, TIM_CHANNEL_1); // 목표 도달 시 정지
+            step_count = 0;
+        }
+    }
+}
