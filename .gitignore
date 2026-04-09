@@ -1,0 +1,14 @@
+.metadata/
+
+**/Debug/
+
+**/*.launch
+
+**/.settings/
+
+
+**/bin/
+**/Release/
+**/Debug/
+*.exe
+
